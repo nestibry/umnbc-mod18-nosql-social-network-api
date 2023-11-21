@@ -5,14 +5,15 @@ const userSchema = new mongoose.Schema(
         username: {
             type: String,
             required: true,
-            // Unique
-            // Trimmed
+            unique: true,
+            trim: true
         },
         email: {
             type: String,
             required: true,
-            // Unique
+            unique: true,
             // Must match a valid email address, see Mongoose's matching validation
+            // https://stackoverflow.com/questions/18022365/mongoose-validate-email-syntax
         },
         thoughts: [{
             type: mongoose.Schema.Types.ObjectId,
