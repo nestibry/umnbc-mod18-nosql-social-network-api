@@ -15,13 +15,13 @@ router.get("/", async (req, res) => {
 
 
 
-// Route: /api/thoughts/:id
+// Route: /api/thoughts/:thoughId
 // GET to get a single thought by its _id
-router.get("/:id", async (req, res) => {
+router.get("/:thoughId", async (req, res) => {
     try {
         const data = "GET to get a single thought by its _id"
         if (!data) {
-            res.status(404).json({ message: 'Record ' + req.params.id + ' not found.' });
+            res.status(404).json({ message: 'Record ' + req.params.thoughId + ' not found.' });
             return;
         }
         res.status(200).json(data);
@@ -64,13 +64,13 @@ router.post("/:thoughtId/reactions", async (req, res) => {
 
 
 
-// Route: /api/thoughts/:id
+// Route: /api/thoughts/:thoughId
 // PUT to update a thought by its _id
-router.put("/:id", async (req, res) => {
+router.put("/:thoughId", async (req, res) => {
     try {
         const data = "PUT to update a thought by its _id";
         if (data[0] === 0) {
-            res.status(400).json({ message: 'Record ' + req.params.id + ' is not found or updated.' });
+            res.status(400).json({ message: 'Record ' + req.params.thoughId + ' is not found or updated.' });
             return;
         }
         res.status(200).json(data);
@@ -81,7 +81,7 @@ router.put("/:id", async (req, res) => {
 
 
 
-// Route: /api/thoughts/:id
+// Route: /:thoughtId/reactions/:reactionId
 // DELETE to remove a thought by its _id
 router.delete("/:thoughtId/reactions/:reactionId", async (req, res) => {
     try {
@@ -98,7 +98,7 @@ router.delete("/:thoughtId/reactions/:reactionId", async (req, res) => {
 
 
 
-// Route: /api/thoughts/:id
+// Route: /api/thoughts/:thoughtId
 // DELETE to remove a thought by its _id
 router.delete("/:thoughtId", async (req, res) => {
     try {
