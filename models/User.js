@@ -12,7 +12,8 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true,
             unique: true,
-            // Must match a valid email address, see Mongoose's matching validation
+            match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, "Please use a valid email address."]
+            // Must match a valid email address, see Mongoose's matching validation (I'm using the Regex from Module 17 Challenge)
             // https://stackoverflow.com/questions/18022365/mongoose-validate-email-syntax
         },
         thoughts: [{
