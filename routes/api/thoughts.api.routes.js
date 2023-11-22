@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { User, Thought } = require('../../models');
 
 
 
@@ -6,7 +7,7 @@ const router = require("express").Router();
 // GET to get all thoughts
 router.get("/", async (req, res) => {
     try {
-        const data = "GET to get all thoughts"
+        const data = await Thought.find();
         res.status(200).json(data);
     } catch (err) {
         res.status(500).json(err);
