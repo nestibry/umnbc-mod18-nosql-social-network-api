@@ -26,19 +26,20 @@ connection.once('open', async () => {
     console.log(createdUsers);
     
 
-    // Seed the Thoughts Collection, Tranform data to include the new ObjectId for each user
-    const thoughtsWithUserId = [];
-    createdUsers.forEach(user => {
-        const thoughtsByUsername = thoughtsData.filter( thought=> thought.username === user.username );
-        if(thoughtsByUsername.length){
-            thoughtsByUsername.forEach(thought => {
-                thought.user = user._id;
-                thoughtsWithUserId.push(thought);
-            });
-        }
-    })
-    console.table(thoughtsWithUserId);
-    const createdThoughts = await Thought.create(thoughtsWithUserId);
+    // // Seed the Thoughts Collection, Tranform data to include the new ObjectId for each user
+    // const thoughtsWithUserId = [];
+    // createdUsers.forEach(user => {
+    //     const thoughtsByUsername = thoughtsData.filter( thought=> thought.username === user.username );
+    //     if(thoughtsByUsername.length){
+    //         thoughtsByUsername.forEach(thought => {
+    //             thought.user = user._id;
+    //             delete thought.username;
+    //             thoughtsWithUserId.push(thought);
+    //         });
+    //     }
+    // })
+    // console.table(thoughtsWithUserId);
+    // const createdThoughts = await Thought.create(thoughtsWithUserId);
 
 
     console.info('Seeding complete! 🌱');

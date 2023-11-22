@@ -44,7 +44,7 @@ const thoughtSchema = new mongoose.Schema(
 );
 
 thoughtSchema.virtual('reactionCount').get(function() {
-    return this.reactions.length;
+    return this.reactions?.length;
 });
 
 // thoughtSchema.virtual('created_on').get(function() {
