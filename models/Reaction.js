@@ -17,6 +17,11 @@ const reactionSchema = new mongoose.Schema(
             ref: "User",
             require: true
         }, 
+        createdAt: {
+            type: Date,
+            default: Date.now,
+            get: date => `${new Date(date).getMonth() + 1}/${new Date(date).getDate()}/${new Date(date).getFullYear()} at ${date.toLocaleTimeString()}`
+        },
     },
     {
         timestamps: true,

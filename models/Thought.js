@@ -23,6 +23,11 @@ const thoughtSchema = new mongoose.Schema(
             require: true
         }, 
         reactions: [reactionSchema],
+        createdAt: {
+            type: Date,
+            default: Date.now,
+            get: date => `${new Date(date).getMonth() + 1}/${new Date(date).getDate()}/${new Date(date).getFullYear()} at ${date.toLocaleTimeString()}`
+        },
 
     },
     {
