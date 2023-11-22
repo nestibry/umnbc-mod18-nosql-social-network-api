@@ -46,5 +46,9 @@
     {
         "thoughtText": "My email is: rachel@lawyer.com",
         "username": "Rachel"
+    },
+    {
+        "thoughtText": "My email is: bryan@bryan.com",
+        "username": "Bryan"
     }
 ]

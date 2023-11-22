@@ -31,14 +31,19 @@ connection.once('open', async () => {
     //     });
     // }
 
-    // Seed the thoughts collection
-    const filteredThoughts = thoughtsData.filter( item => item.username === sortedUsers[0].username);
-    filteredThoughts.forEach(obj => {
-        obj.user = 'Batman';
-        delete obj.username;
-    });
+    // Seed the thoughts collection, mutate data first
+    for(var i = 0; i < sortedUsers.length; i++){
+        const filteredThoughts = thoughtsData.filter( item => item.username === sortedUsers[i].username);
+        console.log(filteredThoughts.length);
+        if(filteredThoughts.length){
+            filteredThoughts.forEach(obj => {
+                obj.user = sortedUsers[i].username;
+                delete obj.username;
+            });
+            console.log(filteredThoughts);
+        }
+    }
 
-    console.log(filteredThoughts);
 
     
 
