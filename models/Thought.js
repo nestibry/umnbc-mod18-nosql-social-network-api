@@ -37,8 +37,9 @@ thoughtSchema.virtual('reactionCount').get(function() {
     return this.reactions.length;
 });
 
-thoughtSchema.virtual('created_on').get(function() {
-    return this.createdAt;
-})
+// thoughtSchema.virtual('created_on').get(function() {
+//     return this.createdAt;
+// });
+
 const Thought = mongoose.model("Thought", thoughtSchema);
 module.exports = Thought;
