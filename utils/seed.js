@@ -43,19 +43,19 @@ connection.once('open', async () => {
     //         console.log(filteredThoughts);
     //     }
     // }
-    const createThoughts = [];
+    const thoughtsWithUserId = [];
 
     sortedUsers.forEach(user => {
         // console.log(user._id);
-        const user_thoughts = thoughtsData.filter( thought=> thought.username === user.username );
-        if(user_thoughts.length){
-            user_thoughts.forEach(thought => {
+        const thoughtsByUsername = thoughtsData.filter( thought=> thought.username === user.username );
+        if(thoughtsByUsername.length){
+            thoughtsByUsername.forEach(thought => {
                 thought.user = user._id;
-                createThoughts.push(thought);
+                thoughtsWithUserId.push(thought);
             });
         }
     })
-    console.log(createThoughts);
+    console.log(thoughtsWithUserId);
 
 
     
