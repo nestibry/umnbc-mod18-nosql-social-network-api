@@ -1,26 +1,26 @@
 [
     {
-        "username": "CaptainAmerica",
-        "email": "cap@teamcap.com"
+        "username": "Batman",
+        "email": "batman@thebatcave.com"
     },
     {
-        "username": "Hawkeye",
-        "email": "hawkeye@teamcap.com"
+        "username": "Lucius Fox",
+        "email": "lucius@wayneenterprises.com"
     },
     {
-        "username": "Wanda",
-        "email": "wanda@teamcap.com"
+        "username": "Gordon",
+        "email": "gordon@gotham.gov"
     },
     {
-        "username": "IronMan",
-        "email": "iron_man@teamiron.com"
+        "username": "Harvey Dent",
+        "email": "harvey@two-face.com"
     },
     {
-        "username": "BlackWidow",
-        "email": "black-widow@teamiron.com"
+        "username": "Joker",
+        "email": "why-so-serious@joking.com"
     },
     {
-        "username": "Vision",
-        "email": "vision@teamiron.com"
+        "username": "Rachel",
+        "email": "rachel@lawyer.com"
     }
 ]
