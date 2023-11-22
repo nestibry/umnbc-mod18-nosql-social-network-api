@@ -1,11 +1,12 @@
 const router = require("express").Router();
+const { User, Thought } = require('../../models');
 
 
 // Route: /api/users/
 // GET all users
 router.get("/", async (req, res) => {
     try {
-        const data = "GET all users"
+        const data = await User.find();
         res.status(200).json(data);
     } catch (err) {
         res.status(500).json(err);
