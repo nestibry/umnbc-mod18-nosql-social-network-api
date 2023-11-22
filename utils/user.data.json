@@ -1,14 +1,26 @@
 [
-  {
-    "username": "IronMan",
-    "email": "iron_man@avengers.com"
-  },
-  {
-    "username": "Thor",
-    "email": "thor@avengers.com"
-  },
-  {
-    "username": "CaptainAmerica",
-    "email": "cap@avengers.com"
-  }
+    {
+        "username": "CaptainAmerica",
+        "email": "cap@teamcap.com"
+    },
+    {
+        "username": "Hawkeye",
+        "email": "hawkeye@teamcap.com"
+    },
+    {
+        "username": "Wanda",
+        "email": "wanda@teamcap.com"
+    },
+    {
+        "username": "IronMan",
+        "email": "iron_man@teamiron.com"
+    },
+    {
+        "username": "BlackWidow",
+        "email": "black-widow@teamiron.com"
+    },
+    {
+        "username": "Vision",
+        "email": "vision@teamiron.com"
+    }
 ]

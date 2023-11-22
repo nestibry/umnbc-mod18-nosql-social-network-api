@@ -17,46 +17,12 @@ connection.once('open', async () => {
     if (usersCheck.length) {
         await connection.dropCollection('users');
     }
-
-    // Create Users
-    const newUser = new User({
-        username: "BryGuy",
-        email: "nestinbk29@gmail.com",
-    });
-
-    await newUser.save();
-
-    const arrUsers = [
-        {
-            username: "Bryan",
-            email: "bryan@bryan.com"
-        },
-        {
-            username: "Sal",
-            email: "sal@sal.com"
-        },
-        {
-            username: "Amiko",
-            email: "amiko@amiko.com"
-        }
-    ];
-
-    // await User.collection.insertMany(arrUsers);
-
-    // await User.collection.insertOne({
-    //     username: "Mara",
-    //     email: "mara@mara.com"
-    // });
-
-    await User.create({
-        username: "Wilder",
-        email: "wilder@wilder.com"
-    });
-
-    await User.create(arrUsers);
-
+    
+    // Seed the users collection
     await User.create(usersData);
-
+    
+    
+   
     
     console.info('Seeding complete! 🌱');
     process.exit(0);
