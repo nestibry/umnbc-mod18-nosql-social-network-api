@@ -31,18 +31,30 @@ connection.once('open', async () => {
             email: "bryan@bryan.com"
         },
         {
-            name: "Sal",
+            username: "Sal",
             email: "sal@sal.com"
         },
         {
-            name: "Amiko",
+            username: "Amiko",
             email: "amiko@amiko.com"
         }
     ];
 
-    await User.collection.insertMany(arrUsers);
+    // await User.collection.insertMany(arrUsers);
 
+    // await User.collection.insertOne({
+    //     username: "Mara",
+    //     email: "mara@mara.com"
+    // });
 
+    await User.create({
+        username: "Wilder",
+        email: "wilder@wilder.com"
+    });
 
+    await User.create(arrUsers);
+
+    
+    console.info('Seeding complete! 🌱');
     process.exit(0);
 });
