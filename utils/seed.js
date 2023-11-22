@@ -1,6 +1,7 @@
 const connection = require('../config/connection');
 const { User, Thought } = require('../models');
 const usersData = require("./user.data.json");
+const thoughtsData = require("./tought.data.json");
 
 connection.on('error', (err) => err);
 
@@ -18,21 +19,19 @@ connection.once('open', async () => {
         await connection.dropCollection('users');
     }
 
-    // Seed the users collection
+    // Seed the users collection and get back users data to assist we other seeding
     await User.create(usersData);
-    const users = await User.find().sort({username:1});
+    const sortedUsers = await User.find().sort({username:1});
+    // for (var i = 0; i < sortedUsers.length; i++) {
+    //     console.log({
+    //        id: sortedUsers[i]._id,
+    //         username: sortedUsers[i].username
+    //     });
+    // }
 
-    for (var i = 0; i < users.length; i++) {
-        console.log({
-           id: users[i]._id,
-            username: users[i].username
-        });
-    }
+    // Seed the thoughts collection
+    console.log(thoughtsData);
 
-    // const newUsers = await connection.db.collection('users').find();
-
-
-    // console.table(newUsers);
 
 
 
