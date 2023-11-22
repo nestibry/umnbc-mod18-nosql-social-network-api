@@ -6,7 +6,7 @@ const thoughtsData = require("./tought.data.json");
 connection.on('error', (err) => err);
 
 connection.once('open', async () => {
-    console.log('connected');
+    console.log('Connected to DB. Seeding the Database...');
 
     // Delete the collections if they exist
     let thoughtsCheck = await connection.db.listCollections({ name: 'thoughts' }).toArray();
@@ -19,34 +19,16 @@ connection.once('open', async () => {
         await connection.dropCollection('users');
     }
 
-    // Seed the users collection and get back users data to assist we other seeding
-    await User.create(usersData);
-    const sortedUsers = await User.find().sort({username:1});
-    console.log(`Number of Users: ${sortedUsers.length}`);
+    // Seed the Users Collection and get back users data to assist we other seeding
+    const createdUsers = await User.create(usersData);
+    console.log(`Number of Users: ${createdUsers.length}`);
+    // console.table(usersData);
+    console.log(createdUsers);
+    
 
-    // for (var i = 0; i < sortedUsers.length; i++) {
-    //     console.log({
-    //        id: sortedUsers[i]._id,
-    //         username: sortedUsers[i].username
-    //     });
-    // }
-
-    // Seed the thoughts collection, mutate data first
-    // for(var i = 0; i < sortedUsers.length; i++){
-    //     const filteredThoughts = thoughtsData.filter( item => item.username === sortedUsers[i].username);
-    //     console.log(filteredThoughts.length);
-    //     if(filteredThoughts.length){
-    //         filteredThoughts.forEach(obj => {
-    //             obj.user = sortedUsers[i].username;
-    //             delete obj.username;
-    //         });
-    //         console.log(filteredThoughts);
-    //     }
-    // }
+    // Seed the Thoughts Collection, Tranform data to include the new ObjectId for each user
     const thoughtsWithUserId = [];
-
-    sortedUsers.forEach(user => {
-        // console.log(user._id);
+    createdUsers.forEach(user => {
         const thoughtsByUsername = thoughtsData.filter( thought=> thought.username === user.username );
         if(thoughtsByUsername.length){
             thoughtsByUsername.forEach(thought => {
@@ -55,13 +37,8 @@ connection.once('open', async () => {
             });
         }
     })
-    console.log(thoughtsWithUserId);
-    await Thought.create(thoughtsWithUserId);
-
-
-    
-
-
+    console.table(thoughtsWithUserId);
+    const createdThoughts = await Thought.create(thoughtsWithUserId);
 
 
     console.info('Seeding complete! 🌱');
