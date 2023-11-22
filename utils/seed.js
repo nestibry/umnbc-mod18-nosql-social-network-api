@@ -22,8 +22,8 @@ connection.once('open', async () => {
     // Seed the users collection and get back users data to assist we other seeding
     await User.create(usersData);
     const sortedUsers = await User.find().sort({username:1});
-    console.log(sortedUsers.length);
-    console.log(sortedUsers[0].username);
+    console.log(`Number of Users: ${sortedUsers.length}`);
+
     // for (var i = 0; i < sortedUsers.length; i++) {
     //     console.log({
     //        id: sortedUsers[i]._id,
@@ -32,17 +32,30 @@ connection.once('open', async () => {
     // }
 
     // Seed the thoughts collection, mutate data first
-    for(var i = 0; i < sortedUsers.length; i++){
-        const filteredThoughts = thoughtsData.filter( item => item.username === sortedUsers[i].username);
-        console.log(filteredThoughts.length);
-        if(filteredThoughts.length){
-            filteredThoughts.forEach(obj => {
-                obj.user = sortedUsers[i].username;
-                delete obj.username;
+    // for(var i = 0; i < sortedUsers.length; i++){
+    //     const filteredThoughts = thoughtsData.filter( item => item.username === sortedUsers[i].username);
+    //     console.log(filteredThoughts.length);
+    //     if(filteredThoughts.length){
+    //         filteredThoughts.forEach(obj => {
+    //             obj.user = sortedUsers[i].username;
+    //             delete obj.username;
+    //         });
+    //         console.log(filteredThoughts);
+    //     }
+    // }
+    const createThoughts = [];
+
+    sortedUsers.forEach(user => {
+        // console.log(user._id);
+        const user_thoughts = thoughtsData.filter( thought=> thought.username === user.username );
+        if(user_thoughts.length){
+            user_thoughts.forEach(thought => {
+                thought.user = user._id;
+                createThoughts.push(thought);
             });
-            console.log(filteredThoughts);
         }
-    }
+    })
+    console.log(createThoughts);
 
 
     
