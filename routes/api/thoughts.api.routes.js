@@ -8,7 +8,7 @@ const { User, Thought } = require('../../models');
 router.get("/", async (req, res) => {
     try {
         const data = await Thought.find()
-        // .populate({path: "user", select: "+username"}).exec();
+        .populate({path: "user", select: "-_id username email"}).exec();
             // .populate({path: "user", select: {"username":1}});
         res.status(200).json(data);
     } catch (err) {
