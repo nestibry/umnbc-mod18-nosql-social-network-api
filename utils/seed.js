@@ -56,6 +56,7 @@ connection.once('open', async () => {
         }
     })
     console.log(thoughtsWithUserId);
+    await Thought.create(thoughtsWithUserId);
 
 
     
