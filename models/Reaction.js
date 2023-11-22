@@ -19,8 +19,12 @@ const reactionSchema = new mongoose.Schema(
         }, 
         createdAt: {
             type: Date,
-            default: Date.now,
-            get: date => `${new Date(date).getMonth() + 1}/${new Date(date).getDate()}/${new Date(date).getFullYear()} at ${date.toLocaleTimeString()}`
+            // default: Date.now,
+            get: date => `${new Date(date).getFullYear()}/${new Date(date).getMonth() + 1}/${new Date(date).getDate()} at ${date.toLocaleTimeString()}`
+        },
+        updatedAt: {
+            type: Date,
+            get: date => `${new Date(date).getFullYear()}/${new Date(date).getMonth() + 1}/${new Date(date).getDate()} at ${date.toLocaleTimeString()}`
         },
     },
     {

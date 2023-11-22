@@ -1,14 +1,14 @@
 [
   {
-    "username": "Bryan",
-    "email": "bryan@bryan.com"
+    "username": "IronMan",
+    "email": "iron_man@avengers.com"
   },
   {
-    "name": "Sal",
-    "email": "sal@sal.com"
+    "username": "Thor",
+    "email": "thor@avengers.com"
   },
   {
-    "name": "Amiko",
-    "email": "amiko@amiko.com"
+    "username": "CaptainAmerica",
+    "email": "cap@avengers.com"
   }
 ]

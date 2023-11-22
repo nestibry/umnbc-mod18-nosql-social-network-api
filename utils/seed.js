@@ -1,5 +1,6 @@
 const connection = require('../config/connection');
 const { User, Thought } = require('../models');
+const usersData = require("./user.data.json");
 
 connection.on('error', (err) => err);
 
@@ -53,6 +54,8 @@ connection.once('open', async () => {
     });
 
     await User.create(arrUsers);
+
+    await User.create(usersData);
 
     
     console.info('Seeding complete! 🌱');
