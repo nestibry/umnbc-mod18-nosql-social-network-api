@@ -23,12 +23,18 @@ const userSchema = new mongoose.Schema(
         friends: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"
-        }]
+        }],
+        createdAt: {
+            type: Date,
+            default: Date.now,
+            get: date => `${new Date(date).getMonth() + 1}/${new Date(date).getDate()}/${new Date(date).getFullYear()} at ${date.toLocaleTimeString()}`
+        },
     },
     {
         timestamps: true,
         toJSON: {
             virtuals: true,
+            getters: true
           },
     }
 );
@@ -37,9 +43,9 @@ userSchema.virtual('friendCount').get(function() {
     return this.friends.length;
 });
 
-userSchema.virtual('created_on').get(function() {
-    return `${this.createdAt.getMonth()+1}/${this.createdAt.getDate()}/${this.createdAt.getFullYear()} at ${this.createdAt.toLocaleTimeString()}`;
-});
+// userSchema.virtual('created_on').get(function() {
+//     return `${this.createdAt.getMonth()+1}/${this.createdAt.getDate()}/${this.createdAt.getFullYear()} at ${this.createdAt.toLocaleTimeString()}`;
+// });
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;
