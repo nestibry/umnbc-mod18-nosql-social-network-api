@@ -22,6 +22,8 @@ connection.once('open', async () => {
     // Seed the users collection and get back users data to assist we other seeding
     await User.create(usersData);
     const sortedUsers = await User.find().sort({username:1});
+    console.log(sortedUsers.length);
+    console.log(sortedUsers[0].username);
     // for (var i = 0; i < sortedUsers.length; i++) {
     //     console.log({
     //        id: sortedUsers[i]._id,
@@ -30,7 +32,15 @@ connection.once('open', async () => {
     // }
 
     // Seed the thoughts collection
-    console.log(thoughtsData);
+    const filteredThoughts = thoughtsData.filter( item => item.username === sortedUsers[0].username);
+    filteredThoughts.forEach(obj => {
+        obj.user = 'Batman';
+        delete obj.username;
+    });
+
+    console.log(filteredThoughts);
+
+    
 
 
 

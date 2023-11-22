@@ -1,50 +1,50 @@
 [
     {
-        "thought": "Hello everyone! Exited to join the Social Network",
+        "thoughtText": "Hello everyone! Excited to start connecting on the Social Network! Send me a DM if you want to be friends.",
         "username": "Batman"
     },
     {
-        "thought": "Hello everyone! Exited to join the Social Network",
+        "thoughtText": "Hello everyone! Excited to start connecting on the Social Network! Send me a DM if you want to be friends.",
         "username": "Gordon"
     },
     {
-        "thought": "Hello everyone! Exited to join the Social Network",
+        "thoughtText": "Hello everyone! Excited to start connecting on the Social Network! Send me a DM if you want to be friends.",
         "username": "Harvey Dent"
     },
     {
-        "thought": "Hello everyone! Exited to join the Social Network",
+        "thoughtText": "Hello everyone! Excited to start connecting on the Social Network! Send me a DM if you want to be friends.",
         "username": "Joker"
     },
     {
-        "thought": "Hello everyone! Exited to join the Social Network",
+        "thoughtText": "Hello everyone! Excited to start connecting on the Social Network! Send me a DM if you want to be friends.",
         "username": "Lucius Fox"
     },
     {
-        "thought": "Hello everyone! Exited to join the Social Network",
+        "thoughtText": "Hello everyone! Excited to start connecting on the Social Network! Send me a DM if you want to be friends.",
         "username": "Rachel"
     },
     {
-        "thought": "My email is: batman@thebatcave.com",
+        "thoughtText": "My email is: batman@thebatcave.com",
         "username": "Batman"
     },
     {
-        "thought": "My email is: gordon@gotham.gov",
+        "thoughtText": "My email is: gordon@gotham.gov",
         "username": "Gordon"
     },
     {
-        "thought": "My email is: harvey@two-face.com",
+        "thoughtText": "My email is: harvey@two-face.com",
         "username": "Harvey Dent"
     },
     {
-        "thought": "My email is: why-so-serious@joking.com",
+        "thoughtText": "My email is: why-so-serious@joking.com",
         "username": "Joker"
     },
     {
-        "thought": "My email is: lucius@wayneenterprises.com",
+        "thoughtText": "My email is: lucius@wayneenterprises.com",
         "username": "Lucius Fox"
     },
     {
-        "thought": "My email is: rachel@lawyer.com",
+        "thoughtText": "My email is: rachel@lawyer.com",
         "username": "Rachel"
     }
 ]
