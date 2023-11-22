@@ -26,12 +26,19 @@ const userSchema = new mongoose.Schema(
         }]
     },
     {
-        timestamps: true
+        timestamps: true,
+        toJSON: {
+            virtuals: true,
+          },
     }
 );
 
 userSchema.virtual('friendCount').get(function() {
     return this.friends.length;
+});
+
+userSchema.virtual('created_on').get(function() {
+    return `${this.createdAt.getMonth()+1}/${this.createdAt.getDate()}/${this.createdAt.getFullYear()} at ${this.createdAt.toLocaleTimeString()}`;
 });
 
 const User = mongoose.model("User", userSchema);
