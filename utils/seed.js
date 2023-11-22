@@ -17,13 +17,25 @@ connection.once('open', async () => {
     if (usersCheck.length) {
         await connection.dropCollection('users');
     }
-    
+
     // Seed the users collection
     await User.create(usersData);
-    
-    
-   
-    
+    const users = await User.find().sort({username:1});
+
+    for (var i = 0; i < users.length; i++) {
+        console.log({
+           id: users[i]._id,
+            username: users[i].username
+        });
+    }
+
+    // const newUsers = await connection.db.collection('users').find();
+
+
+    // console.table(newUsers);
+
+
+
     console.info('Seeding complete! 🌱');
     process.exit(0);
 });

@@ -4,10 +4,6 @@
         "email": "batman@thebatcave.com"
     },
     {
-        "username": "Lucius Fox",
-        "email": "lucius@wayneenterprises.com"
-    },
-    {
         "username": "Gordon",
         "email": "gordon@gotham.gov"
     },
@@ -18,6 +14,10 @@
     {
         "username": "Joker",
         "email": "why-so-serious@joking.com"
+    },
+    {
+        "username": "Lucius Fox",
+        "email": "lucius@wayneenterprises.com"
     },
     {
         "username": "Rachel",
