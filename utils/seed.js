@@ -5,33 +5,6 @@ const thoughtsData = require("./tought.data.json");
 const friendsData = require("./user.friends.data.json");
 
 
-
-
-// async function updateUserThoughts(thoughts) {
-//     try {
-//         const updatePromises = thoughts.map(async (thought) => {
-//             const userId = thought.user;
-//             const thoughtIdToAdd = thought._id;
-
-//             const updatedUser = await User.findByIdAndUpdate(
-//                 userId,
-//                 { $push: { thoughts: thoughtIdToAdd } },
-//                 { new: true }
-//             );
-//             // console.log('User updated successfully:', updatedUser);
-//         });
-
-//         await Promise.all(updatePromises);
-//     } catch (err) {
-//         console.error('Error updating users:', err);
-//     }
-// }
-
-
-
-
-
-
 connection.on('error', (err) => err);
 
 connection.once('open', async () => {
@@ -73,26 +46,15 @@ connection.once('open', async () => {
     console.log("Thoughts: ")
     console.table(thoughts);
 
-    // // Updating Batman's thought items....anytime you update, you need to push the new item to update array and keep the original items in array 
-    // // const result = await User.findByIdAndUpdate(thoughts[0].user, {thoughts: [thoughts[0]._id, thoughts[1]._id]}, {new: true});
-    // await User.findByIdAndUpdate(thoughts[0].user, {thoughts: thoughts[0]._id}, {new: true});
-    // await User.findByIdAndUpdate(thoughts[0].user, {$push: {thoughts: thoughts[1]._id}}, {new: true});
-    // await User.findByIdAndUpdate(thoughts[0].user, {$push: {thoughts: thoughts[3]._id}}, {new: true});
-    // const result = await User.findByIdAndUpdate(thoughts[0].user, {$pull: {thoughts: thoughts[3]._id}}, {new: true});
-    // console.log(result);
+    
 
-    // thoughts.forEach( async (thought) => {
-    //     // console.log(thought);
-    //     const result = await User.findByIdAndUpdate(thought.user, {$push: {thoughts: thought._id}}, {new: true});
-    //     console.log(result);
-    // })
-
+    // Updating each user's thoughts in the User Collection
     async function updateUserThoughts(thoughts) {
         try {
             const updatePromises = thoughts.map(async (thought) => {
                 const userId = thought.user;
                 const thoughtIdToAdd = thought._id;
-    
+
                 const updatedUser = await User.findByIdAndUpdate(
                     userId,
                     { $push: { thoughts: thoughtIdToAdd } },
@@ -100,101 +62,13 @@ connection.once('open', async () => {
                 );
                 // console.log('User updated successfully:', updatedUser);
             });
-    
+
             await Promise.all(updatePromises);
         } catch (err) {
             console.error('Error updating users:', err);
         }
     }
     await updateUserThoughts(thoughts);
-
-
-
-    // /////////////////////////////////////////////////////////////////////////////////////////////////
-    // // Seeding the User's Friends Array, Tranform data to include the new ObjectId for each user
-    // // console.log(friendsData);
-    // users.forEach(async (user) => {
-    //     const createdUserWithFriends = friendsData.filter(item => item.username === user.username);
-    //     if (createdUserWithFriends.length) {
-    //         const friendsListByUsername = createdUserWithFriends[0].friends;
-    //         const friendsListById = [];
-    //         console.log(friendsListByUsername);
-
-    //         friendsListByUsername.forEach(friend => {
-    //             const friendData = users.filter(user => user.username === friend);
-    //             if (friendData.length) {
-    //                 friendsListById.push(friendData[0]._id);
-    //             }
-    //         });
-    //         console.log(friendsListById);
-
-    //         console.log("Hellow")
-    //         console.log(user);
-    //         // const result = User.findOneAndUpdate({ _id: user._id },
-    //         //     {
-    //         //         friends: friendsListById
-    //         //     }
-    //         // );
-    //         // console.log(result);
-
-
-    //         // const friendsData2 = [];
-    //         // friendsList.forEach(friend => {
-    //         //     const friendData = users.filter(user => user.username === friend);
-    //         //     if (friendData.length) {
-    //         //         friendsData2.push(friendData[0]._id);
-    //         //     }
-    //         // });
-    //         // console.log(friendsData2);
-
-    //         // const result = await User.findOneAndUpdate(
-    //         //     { _id: userData[0]._id },
-    //         //     {
-    //         //         friends: friendsData2
-    //         //     });
-
-    //         // console.log(result);
-    //     }
-    // })
-    // const friendsUserIds = [];
-    //  ///////////////////////////////////////////////////////////////////////////////
-
-
-    // ////////////////////////////////////////////////////////////////////////////
-    // const userUsername = "Batman"
-    // const userData = users.filter( user => user.username === userUsername);
-    // console.log(`user: ${userUsername} => ${userData[0]._id}`);
-    // const friendUsername = "Gordon";
-    // const friendData = users.filter( user => user.username === friendUsername);
-    // console.log(`friend: ${friendUsername} => ${friendData[0]._id}`);
-
-    // // const result = await User.findOneAndUpdate(
-    // //     {_id: userData[0]._id },
-    // //     {
-    // //         friends: [friendData[0]._id]
-    // //     });
-
-    // // console.log(result);
-
-    // const friendsList = [ "Gordon", "Lucius Fox"];
-    // const friendsData2 = [];
-    // friendsList.forEach(friend => { 
-    //     const friendData = users.filter(user => user.username === friend);
-    //     if(friendData.length){ 
-    //         friendsData2.push(friendData[0]._id);
-    //     }
-    // });
-    // console.log(friendsData2);
-
-    // const result = await User.findOneAndUpdate(
-    //     {_id: userData[0]._id },
-    //     {
-    //         friends: friendsData2
-    //     });
-
-    // console.log(result);
-    //     //////////////////////////////////////////////////
-
 
 
 
