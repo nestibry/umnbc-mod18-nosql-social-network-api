@@ -1,54 +1,30 @@
 [
     {
-        "thoughtText": "Hello everyone! Nice to meet you. My name is Batman.",
+        "thoughtText": "Nice to meet you all, my name is Batman!",
         "username": "Batman"
     },
     {
-        "thoughtText": "Hello everyone! Nice to meet you. My name is Gordon.",
-        "username": "Gordon"
+        "thoughtText": "Nice to meet you all, my name is Bruce Wayne!",
+        "username": "Bruce Wayne"
     },
     {
-        "thoughtText": "Hello everyone! Nice to meet you. My name is Harvey.",
-        "username": "Harvey Dent"
+        "thoughtText": "Nice to meet you all, my name is Alfred!",
+        "username": "Alfred"
     },
     {
-        "thoughtText": "Hello everyone! Nice to meet you. My name is the Joker.",
-        "username": "Joker"
-    },
-    {
-        "thoughtText": "Hello everyone! Nice to meet you. My name is Lucius.",
-        "username": "Lucius Fox"
-    },
-    {
-        "thoughtText": "Hello everyone!  Nice to meet you. My name is Rachel.",
+        "thoughtText": "Nice to meet you ally, my name is Rachel!",
         "username": "Rachel"
     },
     {
-        "thoughtText": "My email is: batman@thebatcave.com",
-        "username": "Batman"
-    },
-    {
-        "thoughtText": "My email is: gordon@gotham.gov",
-        "username": "Gordon"
-    },
-    {
-        "thoughtText": "My email is: harvey@two-face.com",
-        "username": "Harvey Dent"
-    },
-    {
-        "thoughtText": "My email is: why-so-serious@joking.com",
-        "username": "Joker"
-    },
-    {
-        "thoughtText": "My email is: lucius@wayneenterprises.com",
+        "thoughtText": "Nice to meet you all, my name is Lucius Fox!",
         "username": "Lucius Fox"
     },
     {
-        "thoughtText": "My email is: rachel@lawyer.com",
-        "username": "Rachel"
+        "thoughtText": "Nice to meet you all, my name is Gordon!",
+        "username": "Gordon"
     },
     {
-        "thoughtText": "My email is: bryan@bryan.com",
-        "username": "Bryan"
+        "thoughtText": "Nice to meet you all, my name is Harvey Dent!",
+        "username": "Harvey Dent"
     }
 ]

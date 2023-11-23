@@ -112,6 +112,8 @@ connection.once('open', async () => {
     await updateUserThoughts(thoughts);
 
 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    // Adding reactions to the thoughts
     
 
 
