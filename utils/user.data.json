@@ -4,27 +4,27 @@
         "email": "batman@thebatcave.com"
     },
     {
-        "username": "Gordon",
-        "email": "gordon@gotham.gov"
+        "username": "Bruce Wayne",
+        "email": "ceo@wayneenterprises.com"
     },
     {
-        "username": "Harvey Dent",
-        "email": "harvey@two-face.com"
-    },
-    {
-        "username": "Joker",
-        "email": "why-so-serious@joking.com"
-    },
-    {
-        "username": "Lucius Fox",
-        "email": "lucius@wayneenterprises.com"
+        "username": "Alfred",
+        "email": "alfred@waynemanor.com"
     },
     {
         "username": "Rachel",
         "email": "rachel@lawyer.com"
     },
     {
-        "username": "Z_Bryan",
-        "email": "bryan@bryan.com"
+        "username": "Lucius Fox",
+        "email": "lucius@wayneenterprises.com"
+    },
+    {
+        "username": "Gordon",
+        "email": "gordon@gotham.gov"
+    },
+    {
+        "username": "Harvey Dent",
+        "email": "harvey@two-face.com"
     }
 ]

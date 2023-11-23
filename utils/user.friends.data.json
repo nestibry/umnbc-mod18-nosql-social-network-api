@@ -1,7 +1,11 @@
 [
     {
         "username": "Batman",
-        "friendsUsername" : "Gordon"
+        "friendsUsername" : "Bruce Wayne"
+    },
+    {
+        "username": "Batman",
+        "friendsUsername" : "Alfred"
     },
     {
         "username": "Batman",
@@ -9,6 +13,78 @@
     },
     {
         "username": "Batman",
-        "friendsUsername" : "Johnny"
+        "friendsUsername" : "Gordon"
+    },
+    {
+        "username": "Bruce Wayne",
+        "friendsUsername" : "Batman"
+    },
+    {
+        "username": "Bruce Wayne",
+        "friendsUsername" : "Alfred"
+    },
+    {
+        "username": "Bruce Wayne",
+        "friendsUsername" : "Lucius Fox"
+    },
+    {
+        "username": "Bruce Wayne",
+        "friendsUsername" : "Rachel"
+    },
+    {
+        "username": "Alfred",
+        "friendsUsername" : "Batman"
+    },
+    {
+        "username": "Alfred",
+        "friendsUsername" : "Bruce Wayne"
+    },
+    {
+        "username": "Alfred",
+        "friendsUsername" : "Rachel"
+    },
+    {
+        "username": "Alfred",
+        "friendsUsername" : "Lucius Fox"
+    },
+    {
+        "username": "Rachel",
+        "friendsUsername" : "Bruce Wayne"
+    },
+    {
+        "username": "Rachel",
+        "friendsUsername" : "Alfred"
+    },
+    {
+        "username": "Rachel",
+        "friendsUsername" : "Harvey Dent"
+    },
+    {
+        "username": "Lucius Fox",
+        "friendsUsername" : "Batman"
+    },
+    {
+        "username": "Lucius Fox",
+        "friendsUsername" : "Bruce Wayne"
+    },
+    {
+        "username": "Lucius Fox",
+        "friendsUsername" : "Alfred"
+    },
+    {
+        "username": "Gordon",
+        "friendsUsername" : "Batman"
+    },
+    {
+        "username": "Gordon",
+        "friendsUsername" : "Harvey Dent"
+    },
+    {
+        "username": "Harvey Dent",
+        "friendsUsername" : "Rachel"
+    },
+    {
+        "username": "Harvey Dent",
+        "friendsUsername" : "Gordon"
     }
 ]

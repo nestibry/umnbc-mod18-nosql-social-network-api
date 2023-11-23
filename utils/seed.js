@@ -86,6 +86,7 @@ connection.once('open', async () => {
     const friendsDataByIds = friendsData
         .map(item => ({ userId: getUserIdByUsername(item.username), friendId: getUserIdByUsername(item.friendsUsername) }))
         .filter(item => (item.userId && item.friendId));
+    console.log("Friends: ");
     console.table(friendsDataByIds);
     
     // Updating each user's friends in the User Collection
@@ -100,7 +101,7 @@ connection.once('open', async () => {
                     { $push: { friends: friendIdToAdd } },
                     { new: true }
                 );
-                console.log('User updated successfully:', updatedUser);
+                // console.log('User updated successfully:', updatedUser);
             });
 
             await Promise.all(updatePromises);
