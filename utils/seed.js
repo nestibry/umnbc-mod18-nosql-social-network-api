@@ -19,17 +19,19 @@ connection.once('open', async () => {
         await connection.dropCollection('users');
     }
 
+    
     // Seed the Users Collection and get back users data to assist we other seeding
     const createdUsers = await User.create(usersData);
-    console.log(`Number of Users: ${createdUsers.length}`);
-    // console.table(usersData);
-    console.log(createdUsers);
+    const users = createdUsers.map( user => {return {  _id: user._id, username: user.username }});
+    console.log("Users: ")
+    console.table(users);
+
     
 
     // Seed the Thoughts Collection, Tranform data to include the new ObjectId for each user
     const thoughtsWithUserId = [];
-    createdUsers.forEach(user => {
-        const thoughtsByUsername = thoughtsData.filter( thought=> thought.username === user.username );
+    users.forEach(user => {
+        const thoughtsByUsername = thoughtsData.filter( thought => thought.username === user.username );
         if(thoughtsByUsername.length){
             thoughtsByUsername.forEach(thought => {
                 thought.user = user._id;
@@ -38,9 +40,17 @@ connection.once('open', async () => {
             });
         }
     })
-    console.table(thoughtsWithUserId);
     const createdThoughts = await Thought.create(thoughtsWithUserId);
+    const thoughts = createdThoughts.map( thought => {return {  _id: thought._id, thoughtText: thought.thoughtText, user: thought.user }});
+    console.log("Thoughts: ")
+    console.table(thoughts);
 
+
+
+
+
+
+    
 
     console.info('Seeding complete! 🌱');
     process.exit(0);
