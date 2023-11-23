@@ -114,10 +114,8 @@ connection.once('open', async () => {
 
     ///////////////////////////////////////////////////////////////////////////////////////
     // Adding a 'welcome' reaction to each thought from Lucius Fox (the moderator of the Socal Network)
-    
     const luciusUserId = users.filter(user => user.username === "Lucius Fox" ).map(item => {return item._id});
     const weclomeMessage = "Welcome to the Social Network!";
-
 
     // Updating each user's friends in the User Collection
     async function updateThoughtReactions(thoughts) {
@@ -139,10 +137,6 @@ connection.once('open', async () => {
         }
     }
     await updateThoughtReactions(thoughts);
-
-
-
-
 
 
     ///////////////////////////////////////////////////////////////////////////////////////

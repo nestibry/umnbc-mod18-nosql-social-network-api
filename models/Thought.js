@@ -5,8 +5,6 @@ const reactionSchema = require("./Reaction");
  Notes:
     Using 'user' instead of username to pass in the user's _id, and from there use joins to get the username
     Using timestamps: true to get the createdAt value
-    Need to come back and use a getter method to format the timestamp on query => createdAt: 'Jun 10th, 2020 at 07:30'
-    get: (date) => `${new Date(date).getMonth() + 1}/${new Date(date).getDate()}/${new Date(date).getFullYear()} at ${date.toLocaleTimeString()}`
 */
 
 const thoughtSchema = new mongoose.Schema(
