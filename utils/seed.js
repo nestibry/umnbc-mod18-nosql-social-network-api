@@ -4,6 +4,34 @@ const usersData = require("./user.data.json");
 const thoughtsData = require("./tought.data.json");
 const friendsData = require("./user.friends.data.json");
 
+
+
+
+// async function updateUserThoughts(thoughts) {
+//     try {
+//         const updatePromises = thoughts.map(async (thought) => {
+//             const userId = thought.user;
+//             const thoughtIdToAdd = thought._id;
+
+//             const updatedUser = await User.findByIdAndUpdate(
+//                 userId,
+//                 { $push: { thoughts: thoughtIdToAdd } },
+//                 { new: true }
+//             );
+//             // console.log('User updated successfully:', updatedUser);
+//         });
+
+//         await Promise.all(updatePromises);
+//     } catch (err) {
+//         console.error('Error updating users:', err);
+//     }
+// }
+
+
+
+
+
+
 connection.on('error', (err) => err);
 
 connection.once('open', async () => {
@@ -45,14 +73,40 @@ connection.once('open', async () => {
     console.log("Thoughts: ")
     console.table(thoughts);
 
-    // Updating Batman's thought items....anytime you update, you need to push the new item to update array and keep the original items in array 
-    // const result = await User.findByIdAndUpdate(thoughts[0].user, {thoughts: [thoughts[0]._id, thoughts[1]._id]}, {new: true});
-    await User.findByIdAndUpdate(thoughts[0].user, {thoughts: thoughts[0]._id}, {new: true});
-    await User.findByIdAndUpdate(thoughts[0].user, {$push: {thoughts: thoughts[1]._id}}, {new: true});
-    await User.findByIdAndUpdate(thoughts[0].user, {$push: {thoughts: thoughts[3]._id}}, {new: true});
-    const result = await User.findByIdAndUpdate(thoughts[0].user, {$pull: {thoughts: thoughts[3]._id}}, {new: true});
-    console.log(result);
+    // // Updating Batman's thought items....anytime you update, you need to push the new item to update array and keep the original items in array 
+    // // const result = await User.findByIdAndUpdate(thoughts[0].user, {thoughts: [thoughts[0]._id, thoughts[1]._id]}, {new: true});
+    // await User.findByIdAndUpdate(thoughts[0].user, {thoughts: thoughts[0]._id}, {new: true});
+    // await User.findByIdAndUpdate(thoughts[0].user, {$push: {thoughts: thoughts[1]._id}}, {new: true});
+    // await User.findByIdAndUpdate(thoughts[0].user, {$push: {thoughts: thoughts[3]._id}}, {new: true});
+    // const result = await User.findByIdAndUpdate(thoughts[0].user, {$pull: {thoughts: thoughts[3]._id}}, {new: true});
+    // console.log(result);
 
+    // thoughts.forEach( async (thought) => {
+    //     // console.log(thought);
+    //     const result = await User.findByIdAndUpdate(thought.user, {$push: {thoughts: thought._id}}, {new: true});
+    //     console.log(result);
+    // })
+
+    async function updateUserThoughts(thoughts) {
+        try {
+            const updatePromises = thoughts.map(async (thought) => {
+                const userId = thought.user;
+                const thoughtIdToAdd = thought._id;
+    
+                const updatedUser = await User.findByIdAndUpdate(
+                    userId,
+                    { $push: { thoughts: thoughtIdToAdd } },
+                    { new: true }
+                );
+                // console.log('User updated successfully:', updatedUser);
+            });
+    
+            await Promise.all(updatePromises);
+        } catch (err) {
+            console.error('Error updating users:', err);
+        }
+    }
+    await updateUserThoughts(thoughts);
 
 
 
