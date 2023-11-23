@@ -46,7 +46,7 @@ connection.once('open', async () => {
     console.log("Thoughts: ")
     console.table(thoughts);
 
-    
+
 
     // Updating each user's thoughts in the User Collection
     async function updateUserThoughts(thoughts) {
@@ -69,6 +69,10 @@ connection.once('open', async () => {
         }
     }
     await updateUserThoughts(thoughts);
+
+
+
+    console.log(friendsData);
 
 
 

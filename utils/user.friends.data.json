@@ -1,6 +1,10 @@
 [
     {
         "username": "Batman",
-        "friends" : ["Gordon", "Lucius Fox"]
+        "friendsUsername" : "Gordon"
+    },
+    {
+        "username": "Batman",
+        "friendsUsername" : "Lucius Fox"
     }
 ]
