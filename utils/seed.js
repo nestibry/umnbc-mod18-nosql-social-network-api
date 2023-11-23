@@ -27,7 +27,6 @@ connection.once('open', async () => {
     console.table(users);
 
     
-
     // Seed the Thoughts Collection, Tranform data to include the new ObjectId for each user
     const thoughtsWithUserId = [];
     users.forEach(user => {
@@ -44,11 +43,16 @@ connection.once('open', async () => {
     const thoughts = createdThoughts.map( thought => {return {  _id: thought._id, thoughtText: thought.thoughtText, user: thought.user }});
     console.log("Thoughts: ")
     console.table(thoughts);
+    
+    
+    const friendUsername = "Gordon";
 
+    const friendId = users.filter( user => user.username === friendUsername);
 
-
-
-
+    console.log(`friend: ${friendUsername} => ${friendId}`);
+    
+    
+    
 
     
 
