@@ -113,8 +113,33 @@ connection.once('open', async () => {
 
 
     ///////////////////////////////////////////////////////////////////////////////////////
-    // Adding reactions to the thoughts
+    // Adding a 'welcome' reaction to each thought from Lucius Fox (the moderator of the Socal Network)
     
+    const luciusUserId = users.filter(user => user.username === "Lucius Fox" ).map(item => {return item._id});
+    const weclomeMessage = "Welcome to the Social Network!";
+
+
+    // Updating each user's friends in the User Collection
+    async function updateThoughtReactions(thoughts) {
+        try {
+            const updatePromises = thoughts.map(async (thought) => {
+                const thoughtId = thought._id;
+                
+                const updatedThought = await Thought.findByIdAndUpdate(
+                    thoughtId,
+                    { $push: { reactions: {reactionBody: weclomeMessage, user: luciusUserId }} },
+                    { new: true }
+                );
+                console.log('Thought updated successfully:', updatedThought);
+            });
+
+            await Promise.all(updatePromises);
+        } catch (err) {
+            console.error('Error updating thoughts:', err);
+        }
+    }
+    await updateThoughtReactions(thoughts);
+
 
 
 
