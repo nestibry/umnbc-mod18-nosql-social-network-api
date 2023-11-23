@@ -1,14 +1,17 @@
 const router = require("express").Router();
+const { User, Thought } = require('../../models');
 
 
 // Route: /api/users/
 // GET all users
 router.get("/", async (req, res) => {
     try {
-        const data = "GET all users"
+        const data = await User.find().populate("friends", "_id username email");
+        // .select('_id username email');
         res.status(200).json(data);
     } catch (err) {
-        res.status(500).json(err);
+        console.log(err);
+        res.status(500).json({status: "error", message:err.message});
     }
 });
 
@@ -16,14 +19,15 @@ router.get("/", async (req, res) => {
 // GET a single user by its _id and populated thought and friend data
 router.get("/:userId", async (req, res) => {
     try {
-        const data = "GET a single user by its _id and populated thought and friend data";
+        // const data = "GET a single user by its _id and populated thought and friend data";
+        const data = await User.findOne({_id: req.params.userId}).populate("friends", "_id username email");
         if (!data) {
             res.status(404).json({ message: 'Record ' + req.params.userId + ' not found.' });
             return;
         }
         res.status(200).json(data);
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({status: "error", message:err.message});
     }
 });
 

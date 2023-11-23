@@ -1,0 +1,30 @@
+[
+    {
+        "username": "Batman",
+        "email": "batman@thebatcave.com"
+    },
+    {
+        "username": "Bruce Wayne",
+        "email": "ceo@wayneenterprises.com"
+    },
+    {
+        "username": "Alfred",
+        "email": "alfred@waynemanor.com"
+    },
+    {
+        "username": "Rachel",
+        "email": "rachel@lawyer.com"
+    },
+    {
+        "username": "Lucius Fox",
+        "email": "lucius@wayneenterprises.com"
+    },
+    {
+        "username": "Gordon",
+        "email": "gordon@gotham.gov"
+    },
+    {
+        "username": "Harvey Dent",
+        "email": "harvey@two-face.com"
+    }
+]
