@@ -44,12 +44,20 @@ connection.once('open', async () => {
     console.log("Thoughts: ")
     console.table(thoughts);
     
-    
+    const userUsername = "Batman"
+    const userData = users.filter( user => user.username === userUsername);
+    console.log(`user: ${userUsername} => ${userData[0]._id}`);
     const friendUsername = "Gordon";
+    const friendData = users.filter( user => user.username === friendUsername);
+    console.log(`friend: ${friendUsername} => ${friendData[0]._id}`);
 
-    const friendId = users.filter( user => user.username === friendUsername);
+    const result = await User.findOneAndUpdate(
+        {_id: userData[0]._id },
+        {
+            friends: [friendData[0]._id]
+        });
 
-    console.log(`friend: ${friendUsername} => ${friendId}`);
+    console.log(result);
     
     
     

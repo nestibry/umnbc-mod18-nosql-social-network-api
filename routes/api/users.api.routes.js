@@ -6,7 +6,8 @@ const { User, Thought } = require('../../models');
 // GET all users
 router.get("/", async (req, res) => {
     try {
-        const data = await User.find().select('_id username email');
+        const data = await User.find().populate("friends", "_id username email");
+        // .select('_id username email');
         res.status(200).json(data);
     } catch (err) {
         console.log(err);
