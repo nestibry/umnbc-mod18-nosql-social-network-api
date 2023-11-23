@@ -33,6 +33,43 @@ connection.once('open', async () => {
 
 
     ///////////////////////////////////////////////////////////////////////////////////////
+    // Updating each user's friends in the Users collection => First need mutate the friendsData into all userId's (_id)
+    function getUserIdByUsername(username) {
+        const user = users.find(user => user.username === username);
+        return user ? user._id : null;
+    }
+
+    // Only use friendsData that has userIds
+    const friendsDataByIds = friendsData
+        .map(item => ({ userId: getUserIdByUsername(item.username), friendId: getUserIdByUsername(item.friendsUsername) }))
+        .filter(item => (item.userId && item.friendId));
+    console.log("Friends: ");
+    console.table(friendsDataByIds);
+    
+    // Updating each user's friends in the User Collection
+    async function updateUserFriends(friendsDataByIds) {
+        try {
+            const updatePromises = friendsDataByIds.map(async (item) => {
+                const userId = item.userId;
+                const friendIdToAdd = item.friendId;
+
+                const updatedUser = await User.findByIdAndUpdate(
+                    userId,
+                    { $push: { friends: friendIdToAdd } },
+                    { new: true }
+                );
+                // console.log('User updated successfully:', updatedUser);
+            });
+
+            await Promise.all(updatePromises);
+        } catch (err) {
+            console.error('Error updating users:', err);
+        }
+    }
+    await updateUserFriends(friendsDataByIds);
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////
     // Seed the Thoughts Collection, Tranform data to include the new ObjectId for each user
     const thoughtsWithUserId = [];
     users.forEach(user => {
@@ -75,45 +112,7 @@ connection.once('open', async () => {
     await updateUserThoughts(thoughts);
 
 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    // Updating each user's friends in the Users collection => First need mutate the friendsData into all userId's (_id)
-    function getUserIdByUsername(username) {
-        const user = users.find(user => user.username === username);
-        return user ? user._id : null;
-    }
-
-    // Only use friendsData that has userIds
-    const friendsDataByIds = friendsData
-        .map(item => ({ userId: getUserIdByUsername(item.username), friendId: getUserIdByUsername(item.friendsUsername) }))
-        .filter(item => (item.userId && item.friendId));
-    console.log("Friends: ");
-    console.table(friendsDataByIds);
     
-    // Updating each user's friends in the User Collection
-    async function updateUserFriends(friendsDataByIds) {
-        try {
-            const updatePromises = friendsDataByIds.map(async (item) => {
-                const userId = item.userId;
-                const friendIdToAdd = item.friendId;
-
-                const updatedUser = await User.findByIdAndUpdate(
-                    userId,
-                    { $push: { friends: friendIdToAdd } },
-                    { new: true }
-                );
-                // console.log('User updated successfully:', updatedUser);
-            });
-
-            await Promise.all(updatePromises);
-        } catch (err) {
-            console.error('Error updating users:', err);
-        }
-    }
-    await updateUserFriends(friendsDataByIds);
-
-
-
-
 
 
 
