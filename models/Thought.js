@@ -40,6 +40,7 @@ const thoughtSchema = new mongoose.Schema(
             getters: true,
             virtuals: true
           },
+          id: false,
     }
 );
 
