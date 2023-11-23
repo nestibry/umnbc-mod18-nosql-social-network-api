@@ -89,18 +89,18 @@ connection.once('open', async () => {
     console.table(friendsDataByIds);
     
     // Updating each user's friends in the User Collection
-    async function updateUserThoughts(thoughts) {
+    async function updateUserFriends(friendsDataByIds) {
         try {
-            const updatePromises = thoughts.map(async (thought) => {
-                const userId = thought.user;
-                const thoughtIdToAdd = thought._id;
+            const updatePromises = friendsDataByIds.map(async (item) => {
+                const userId = item.userId;
+                const friendIdToAdd = item.friendId;
 
                 const updatedUser = await User.findByIdAndUpdate(
                     userId,
-                    { $push: { thoughts: thoughtIdToAdd } },
+                    { $push: { friends: friendIdToAdd } },
                     { new: true }
                 );
-                // console.log('User updated successfully:', updatedUser);
+                console.log('User updated successfully:', updatedUser);
             });
 
             await Promise.all(updatePromises);
@@ -108,7 +108,7 @@ connection.once('open', async () => {
             console.error('Error updating users:', err);
         }
     }
-    await updateUserThoughts(thoughts);
+    await updateUserFriends(friendsDataByIds);
 
 
 
@@ -116,7 +116,7 @@ connection.once('open', async () => {
 
 
 
-    
+
 
     ///////////////////////////////////////////////////////////////////////////////////////
     console.info('Seeding complete! 🌱');
