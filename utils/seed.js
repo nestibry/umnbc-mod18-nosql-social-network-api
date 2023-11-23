@@ -10,6 +10,8 @@ connection.on('error', (err) => err);
 connection.once('open', async () => {
     console.log('Connected to DB. Seeding the Database...');
 
+
+    ///////////////////////////////////////////////////////////////////////////////////////
     // Delete the collections if they exist
     let thoughtsCheck = await connection.db.listCollections({ name: 'thoughts' }).toArray();
     if (thoughtsCheck.length) {
@@ -22,6 +24,7 @@ connection.once('open', async () => {
     }
 
 
+    /////////////////////////////////////////////////////////////////////////////////////// 
     // Seed the Users Collection and get back users data to assist we other seeding
     const createdUsers = await User.create(usersData);
     const users = createdUsers.map(user => { return { _id: user._id, username: user.username } });
@@ -29,6 +32,7 @@ connection.once('open', async () => {
     console.table(users);
 
 
+    ///////////////////////////////////////////////////////////////////////////////////////
     // Seed the Thoughts Collection, Tranform data to include the new ObjectId for each user
     const thoughtsWithUserId = [];
     users.forEach(user => {
@@ -40,14 +44,14 @@ connection.once('open', async () => {
                 thoughtsWithUserId.push(thought);
             });
         }
-    })
+    });
     const createdThoughts = await Thought.create(thoughtsWithUserId);
     const thoughts = createdThoughts.map(thought => { return { _id: thought._id, thoughtText: thought.thoughtText, user: thought.user } });
     console.log("Thoughts: ")
     console.table(thoughts);
 
 
-
+    ///////////////////////////////////////////////////////////////////////////////////////
     // Updating each user's thoughts in the User Collection
     async function updateUserThoughts(thoughts) {
         try {
@@ -71,13 +75,50 @@ connection.once('open', async () => {
     await updateUserThoughts(thoughts);
 
 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    // Updating each user's friends in the Users collection => First need mutate the friendsData into all userId's (_id)
+    function getUserIdByUsername(username) {
+        const user = users.find(user => user.username === username);
+        return user ? user._id : null;
+    }
 
-    console.log(friendsData);
+    // Only use friendsData that has userIds
+    const friendsDataByIds = friendsData
+        .map(item => ({ userId: getUserIdByUsername(item.username), friendId: getUserIdByUsername(item.friendsUsername) }))
+        .filter(item => (item.userId && item.friendId));
+    console.table(friendsDataByIds);
+    
+    // Updating each user's friends in the User Collection
+    async function updateUserThoughts(thoughts) {
+        try {
+            const updatePromises = thoughts.map(async (thought) => {
+                const userId = thought.user;
+                const thoughtIdToAdd = thought._id;
+
+                const updatedUser = await User.findByIdAndUpdate(
+                    userId,
+                    { $push: { thoughts: thoughtIdToAdd } },
+                    { new: true }
+                );
+                // console.log('User updated successfully:', updatedUser);
+            });
+
+            await Promise.all(updatePromises);
+        } catch (err) {
+            console.error('Error updating users:', err);
+        }
+    }
+    await updateUserThoughts(thoughts);
 
 
 
 
 
+
+
+    
+
+    ///////////////////////////////////////////////////////////////////////////////////////
     console.info('Seeding complete! 🌱');
     process.exit(0);
 });

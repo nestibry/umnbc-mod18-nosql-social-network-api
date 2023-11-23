@@ -6,5 +6,9 @@
     {
         "username": "Batman",
         "friendsUsername" : "Lucius Fox"
+    },
+    {
+        "username": "Batman",
+        "friendsUsername" : "Johnny"
     }
 ]
