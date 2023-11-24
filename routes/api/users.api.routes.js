@@ -60,7 +60,10 @@ router.post("/", async (req, res) => {
 // POST to add a new friend to a user's friend list
 router.post("/:userId/friends/:friendId", async (req, res) => {
     try {
-        const data = "POST to add a new friend to a user's friend list. userId: " + req.params.userId + " friendId: " + req.params.friendId;
+        const data = await User.findByIdAndUpdate( req.params.userId,
+            { $push: { friends: req.params.friendId } },
+            { new: true }
+        ).populate({path: "friends", select: "_id username email", options: { sort: {username:1} }});
         res.status(200).json(data);
     } catch (err) {
         console.log(err);
