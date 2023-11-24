@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
 
 
 
-// Route: /api/thoughts/:thoughId
+// Route: /api/thoughts/:thoughtId
 // GET to get a single thought by its _id
 router.get("/:thoughtId", async (req, res) => {
     try {

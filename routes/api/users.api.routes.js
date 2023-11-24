@@ -119,12 +119,12 @@ router.delete("/:userId/friends/:friendId", async (req, res) => {
 // DELETE to remove user by its _id  => BONUS: Remove a user's associated thoughts when deleted.
 router.delete("/:userId", async (req, res) => {
     try {
-        const data = "DELETE to remove user by its _id";
+        const data = await User.findByIdAndDelete(req.params.userId);
         if (!data) {
             res.status(404).json({ message: 'Record ' + req.params.userId + ' not found.' });
             return;
         }
-        res.status(200).json({ status: "Record " + req.params.userId + " deleted" });
+        res.status(200).json(data);
     } catch (err) {
         console.log(err);
         res.status(500).json({status: "error", message:err.message});
