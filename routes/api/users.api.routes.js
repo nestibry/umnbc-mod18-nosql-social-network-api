@@ -32,6 +32,7 @@ router.get("/:userId", async (req, res) => {
         }
         res.status(200).json(data);
     } catch (err) {
+        console.log(err);
         res.status(500).json({status: "error", message:err.message});
     }
 });
@@ -40,15 +41,16 @@ router.get("/:userId", async (req, res) => {
 // POST a new user:
 // // example data
 // {
-//     "username": "lernantino",
-//         "email": "lernantino@gmail.com"
+//     "username": "Joker",
+//     "email": "joker@whysoserious.com"
 // }
 router.post("/", async (req, res) => {
     try {
-        const data = "POST a new user";
+        const data = await User.create(req.body);
         res.status(200).json(data);
     } catch (err) {
-        res.status(500).json(err);
+        console.log(err);
+        res.status(500).json({status: "error", message:err.message});
     }
 });
 
@@ -61,7 +63,8 @@ router.post("/:userId/friends/:friendId", async (req, res) => {
         const data = "POST to add a new friend to a user's friend list. userId: " + req.params.userId + " friendId: " + req.params.friendId;
         res.status(200).json(data);
     } catch (err) {
-        res.status(500).json(err);
+        console.log(err);
+        res.status(500).json({status: "error", message:err.message});
     }
 });
 
@@ -77,7 +80,8 @@ router.put("/:userId", async (req, res) => {
         }
         res.status(200).json(data);
     } catch (err) {
-        res.status(500).json(err);
+        console.log(err);
+        res.status(500).json({status: "error", message:err.message});
     }
 });
 
@@ -94,7 +98,8 @@ router.delete("/:userId/friends/:friendId", async (req, res) => {
         }
         res.status(200).json({ status: "Record " + req.params.friendId + " deleted" });
     } catch (err) {
-        res.status(500).json(err);
+        console.log(err);
+        res.status(500).json({status: "error", message:err.message});
     }
 });
 
@@ -111,7 +116,8 @@ router.delete("/:userId", async (req, res) => {
         }
         res.status(200).json({ status: "Record " + req.params.userId + " deleted" });
     } catch (err) {
-        res.status(500).json(err);
+        console.log(err);
+        res.status(500).json({status: "error", message:err.message});
     }
 });
 
