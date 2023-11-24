@@ -46,14 +46,21 @@ router.get("/:thoughtId", async (req, res) => {
 // POST to create a new thought (don't forget to push the created thought's _id to the associated user's thoughts array field)
 // // example data
 // {
-//     "thoughtText": "Here's a cool thought...",
-//         "username": "lernantino",
-//             "userId": "5edff358a0fcb779aa7b118b"
+// 	"user" : "65601dea9eb742d3f5a5622e",
+// 	"thoughtText": "Why so serious?"
 // }
 router.post("/", async (req, res) => {
     try {
-        const data = "POST to create a new thought (don't forget to push the created thought's _id to the associated user's thoughts array field)"
-        res.status(200).json(data);
+        const thoughtData = await Thought.create(req.body);
+        if (!thoughtData) {
+            res.status(400).json({ message: 'New thought data not found.' });
+            return;
+        }
+        const userData = await User.findByIdAndUpdate(thoughtData.user,
+            { $push: { thoughts: thoughtData._id} },
+            { new: true }
+        );
+        res.status(200).json({thoughtData: thoughtData, userData: userData});
     } catch (err) {
         console.log(err);
         res.status(500).json({status: "error", message:err.message});
@@ -76,9 +83,9 @@ router.post("/:thoughtId/reactions", async (req, res) => {
 
 
 
-// Route: /api/thoughts/:thoughId
+// Route: /api/thoughts/:thoughtId
 // PUT to update a thought by its _id
-router.put("/:thoughId", async (req, res) => {
+router.put("/:thoughtId", async (req, res) => {
     try {
         const data = "PUT to update a thought by its _id";
         if (data[0] === 0) {
