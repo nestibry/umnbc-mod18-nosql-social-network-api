@@ -117,15 +117,20 @@ router.put("/:thoughtId", async (req, res) => {
 
 
 // Route: /:thoughtId/reactions/:reactionId
-// DELETE to remove a thought by its _id
+// DELETE to pull and remove a reaction by the reaction's reactionId value
 router.delete("/:thoughtId/reactions/:reactionId", async (req, res) => {
     try {
-        const data = "DELETE to remove a thought by its _id";
+        const data = await Thought.findByIdAndUpdate({ _id: req.params.thoughtId },
+            { $pull: { reactions: { _id: req.params.reactionId } } },
+            { new: true }
+        )
+            .populate({ path: "user", select: "_id username email" })
+            .populate({ path: "reactions", populate: { path: "user", select: "_id username email" } });
         if (!data) {
             res.status(404).json({ message: 'Record ' + req.params.reactionId + ' not found.' });
             return;
         }
-        res.status(200).json({ status: "Record " + req.params.reactionId + " deleted" });
+        res.status(200).json({ status: "Record deleted", updatedThought: data });
     } catch (err) {
         console.log(err);
         res.status(500).json({ status: "error", message: err.message });
