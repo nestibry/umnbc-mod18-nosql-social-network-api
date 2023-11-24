@@ -8,11 +8,13 @@ const { User, Thought } = require('../../models');
 router.get("/", async (req, res) => {
     try {
         const data = await Thought.find()
-        .populate({path: "user", select: "-_id username email"}).exec();
-            // .populate({path: "user", select: {"username":1}});
+            .populate({ path: "user", select: "_id username email" })
+            .populate({path: "reactions", populate: {path: "user", select: "_id username email"}}) 
+            .select("-__v");
         res.status(200).json(data);
     } catch (err) {
-        res.status(500).json(err);
+        console.log(err);
+        res.status(500).json({status: "error", message:err.message});
     }
 });
 
@@ -20,16 +22,21 @@ router.get("/", async (req, res) => {
 
 // Route: /api/thoughts/:thoughId
 // GET to get a single thought by its _id
-router.get("/:thoughId", async (req, res) => {
+router.get("/:thoughtId", async (req, res) => {
     try {
-        const data = "GET to get a single thought by its _id"
+        // const data = "GET to get a single thought by its _id"
+        const data = await Thought.findById({ _id: req.params.thoughtId })
+            .populate({ path: "user", select: "_id username email" })
+            .populate({path: "reactions", populate: {path: "user", select: "_id username email"}}) 
+            .select("-__v");
         if (!data) {
-            res.status(404).json({ message: 'Record ' + req.params.thoughId + ' not found.' });
+            res.status(404).json({ message: 'Record ' + req.params.thoughtId + ' not found.' });
             return;
         }
         res.status(200).json(data);
     } catch (err) {
-        res.status(500).json(err);
+        console.log(err);
+        res.status(500).json({status: "error", message:err.message});
     }
 });
 
@@ -48,7 +55,8 @@ router.post("/", async (req, res) => {
         const data = "POST to create a new thought (don't forget to push the created thought's _id to the associated user's thoughts array field)"
         res.status(200).json(data);
     } catch (err) {
-        res.status(500).json(err);
+        console.log(err);
+        res.status(500).json({status: "error", message:err.message});
     }
 });
 
@@ -61,7 +69,8 @@ router.post("/:thoughtId/reactions", async (req, res) => {
         const data = "POST to create a reaction stored in a single thought's reactions array field => thoughtId: " + req.params.thoughtId;
         res.status(200).json(data);
     } catch (err) {
-        res.status(500).json(err);
+        console.log(err);
+        res.status(500).json({status: "error", message:err.message});
     }
 });
 
@@ -78,7 +87,8 @@ router.put("/:thoughId", async (req, res) => {
         }
         res.status(200).json(data);
     } catch (err) {
-        res.status(500).json(err);
+        console.log(err);
+        res.status(500).json({status: "error", message:err.message});
     }
 });
 
@@ -95,7 +105,8 @@ router.delete("/:thoughtId/reactions/:reactionId", async (req, res) => {
         }
         res.status(200).json({ status: "Record " + req.params.reactionId + " deleted" });
     } catch (err) {
-        res.status(500).json(err);
+        console.log(err);
+        res.status(500).json({status: "error", message:err.message});
     }
 });
 
@@ -112,7 +123,8 @@ router.delete("/:thoughtId", async (req, res) => {
         }
         res.status(200).json({ status: "Record " + req.params.thoughtId + " deleted" });
     } catch (err) {
-        res.status(500).json(err);
+        console.log(err);
+        res.status(500).json({status: "error", message:err.message});
     }
 });
 
