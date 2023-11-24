@@ -7,8 +7,9 @@ const { User, Thought } = require('../../models');
 router.get("/", async (req, res) => {
     try {
         const data = await User.find()
-            .populate("friends", "_id username")
+            .populate({path: "friends", select: "_id username", options: { sort: {username:1} }})
             .populate("thoughts", "_id thoughtText")
+            .sort({username: 1})
             .select("-__v");
         res.status(200).json(data);
     } catch (err) {
@@ -21,7 +22,6 @@ router.get("/", async (req, res) => {
 // GET a single user by its _id and populated thought and friend data
 router.get("/:userId", async (req, res) => {
     try {
-        // const data = "GET a single user by its _id and populated thought and friend data";
         const data = await User.findById({_id: req.params.userId})
             .populate("friends", "_id username")
             .populate("thoughts", "_id thoughtText")
