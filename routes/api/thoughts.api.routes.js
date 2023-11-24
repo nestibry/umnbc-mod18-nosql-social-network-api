@@ -138,12 +138,12 @@ router.delete("/:thoughtId/reactions/:reactionId", async (req, res) => {
 // DELETE to remove a thought by its _id
 router.delete("/:thoughtId", async (req, res) => {
     try {
-        const data = "DELETE to remove a thought by its _id";
+        const data = await Thought.findByIdAndDelete(req.params.thoughtId);
         if (!data) {
             res.status(404).json({ message: 'Record ' + req.params.thoughtId + ' not found.' });
             return;
         }
-        res.status(200).json({ status: "Record " + req.params.thoughtId + " deleted" });
+        res.status(200).json({ status: "Record deleted", record: data });
     } catch (err) {
         console.log(err);
         res.status(500).json({ status: "error", message: err.message });
