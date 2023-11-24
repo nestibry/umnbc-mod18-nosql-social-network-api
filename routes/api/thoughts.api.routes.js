@@ -9,12 +9,12 @@ router.get("/", async (req, res) => {
     try {
         const data = await Thought.find()
             .populate({ path: "user", select: "_id username email" })
-            .populate({path: "reactions", populate: {path: "user", select: "_id username email"}}) 
+            .populate({ path: "reactions", populate: { path: "user", select: "_id username email" } })
             .select("-__v");
         res.status(200).json(data);
     } catch (err) {
         console.log(err);
-        res.status(500).json({status: "error", message:err.message});
+        res.status(500).json({ status: "error", message: err.message });
     }
 });
 
@@ -27,7 +27,7 @@ router.get("/:thoughtId", async (req, res) => {
         // const data = "GET to get a single thought by its _id"
         const data = await Thought.findById({ _id: req.params.thoughtId })
             .populate({ path: "user", select: "_id username email" })
-            .populate({path: "reactions", populate: {path: "user", select: "_id username email"}}) 
+            .populate({ path: "reactions", populate: { path: "user", select: "_id username email" } })
             .select("-__v");
         if (!data) {
             res.status(404).json({ message: 'Record ' + req.params.thoughtId + ' not found.' });
@@ -36,7 +36,7 @@ router.get("/:thoughtId", async (req, res) => {
         res.status(200).json(data);
     } catch (err) {
         console.log(err);
-        res.status(500).json({status: "error", message:err.message});
+        res.status(500).json({ status: "error", message: err.message });
     }
 });
 
@@ -57,13 +57,13 @@ router.post("/", async (req, res) => {
             return;
         }
         const userData = await User.findByIdAndUpdate(thoughtData.user,
-            { $push: { thoughts: thoughtData._id} },
+            { $push: { thoughts: thoughtData._id } },
             { new: true }
         );
-        res.status(200).json({thoughtData: thoughtData, userData: userData});
+        res.status(200).json({ thoughtData: thoughtData, userData: userData });
     } catch (err) {
         console.log(err);
-        res.status(500).json({status: "error", message:err.message});
+        res.status(500).json({ status: "error", message: err.message });
     }
 });
 
@@ -79,15 +79,15 @@ router.post("/", async (req, res) => {
 router.post("/:thoughtId/reactions", async (req, res) => {
     try {
         const data = await Thought.findByIdAndUpdate(req.params.thoughtId,
-            { $push: { reactions: {reactionBody: req.body.reactionBody, user: req.body.user }} },
+            { $push: { reactions: { reactionBody: req.body.reactionBody, user: req.body.user } } },
             { new: true }
         )
-        .populate({ path: "user", select: "_id username email" })
-        .populate({path: "reactions", populate: {path: "user", select: "_id username email"}});
+            .populate({ path: "user", select: "_id username email" })
+            .populate({ path: "reactions", populate: { path: "user", select: "_id username email" } });
         res.status(200).json(data);
     } catch (err) {
         console.log(err);
-        res.status(500).json({status: "error", message:err.message});
+        res.status(500).json({ status: "error", message: err.message });
     }
 });
 
@@ -97,15 +97,20 @@ router.post("/:thoughtId/reactions", async (req, res) => {
 // PUT to update a thought by its _id
 router.put("/:thoughtId", async (req, res) => {
     try {
-        const data = "PUT to update a thought by its _id";
+        const data = await Thought.findByIdAndUpdate(req.params.thoughtId,
+            { ...req.body },
+            { new: true }
+        )
+            .populate({ path: "user", select: "_id username email" })
+            .populate({ path: "reactions", populate: { path: "user", select: "_id username email" } });
         if (data[0] === 0) {
-            res.status(400).json({ message: 'Record ' + req.params.thoughId + ' is not found or updated.' });
+            res.status(400).json({ message: 'Record ' + req.params.thoughtId + ' is not found or updated.' });
             return;
         }
         res.status(200).json(data);
     } catch (err) {
         console.log(err);
-        res.status(500).json({status: "error", message:err.message});
+        res.status(500).json({ status: "error", message: err.message });
     }
 });
 
@@ -123,7 +128,7 @@ router.delete("/:thoughtId/reactions/:reactionId", async (req, res) => {
         res.status(200).json({ status: "Record " + req.params.reactionId + " deleted" });
     } catch (err) {
         console.log(err);
-        res.status(500).json({status: "error", message:err.message});
+        res.status(500).json({ status: "error", message: err.message });
     }
 });
 
@@ -141,7 +146,7 @@ router.delete("/:thoughtId", async (req, res) => {
         res.status(200).json({ status: "Record " + req.params.thoughtId + " deleted" });
     } catch (err) {
         console.log(err);
-        res.status(500).json({status: "error", message:err.message});
+        res.status(500).json({ status: "error", message: err.message });
     }
 });
 
