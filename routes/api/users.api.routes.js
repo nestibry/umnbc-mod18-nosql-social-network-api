@@ -80,7 +80,6 @@ router.put("/:userId", async (req, res) => {
             { ...req.body },
             { new: true }
         )
-        // .populate({path: "friends", select: "_id username email", options: { sort: {username:1} }});
         if (data[0] === 0) {
             res.status(400).json({ message: 'Record ' + req.params.userId + ' is not found or updated.' });
             return;
@@ -98,12 +97,16 @@ router.put("/:userId", async (req, res) => {
 // DELETE to remove a friend from a user's friend list
 router.delete("/:userId/friends/:friendId", async (req, res) => {
     try {
-        const data = "DELETE to remove a friend from a user's friend list. userId: " + req.params.userId + " friendId: " + req.params.friendId;
+        const data = await User.findByIdAndUpdate( req.params.userId,
+            { $pull: { friends: req.params.friendId } },
+            { new: true }
+        ).populate({path: "friends", select: "_id username email", options: { sort: {username:1} }});
+        
         if (!data) {
             res.status(404).json({ message: 'Record not found.' });
             return;
         }
-        res.status(200).json({ status: "Record " + req.params.friendId + " deleted" });
+        res.status(200).json(data);
     } catch (err) {
         console.log(err);
         res.status(500).json({status: "error", message:err.message});
