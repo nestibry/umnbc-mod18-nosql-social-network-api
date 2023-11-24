@@ -53,20 +53,6 @@ userSchema.virtual('friendCount').get(function () {
 //     return `${this.createdAt.getMonth()+1}/${this.createdAt.getDate()}/${this.createdAt.getFullYear()} at ${this.createdAt.toLocaleTimeString()}`;
 // });
 
-
-// Define pre middleware for the 'deleteOne' operation on the User model
-userSchema.pre('findOneAndDelete', { document: true, query: false }, async function () {
-    const user = this;
-  
-    try {
-      // Remove thoughts associated with the user being removed
-      await Thought.deleteMany({ user: user._id });
-    } catch (error) {
-      console.error(error);
-      throw error; // Propagate the error to indicate the issue
-    }
-  });
-
 const User = mongoose.model("User", userSchema);
 module.exports = User;
 

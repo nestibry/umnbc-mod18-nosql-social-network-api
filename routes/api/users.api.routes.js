@@ -2,9 +2,6 @@ const router = require("express").Router();
 const { User, Thought } = require('../../models');
 
 
-
-
-
 // Route: /api/users/
 // GET all users
 router.get("/", async (req, res) => {
