@@ -2,19 +2,22 @@ const router = require("express").Router();
 const { User, Thought } = require('../../models');
 
 
+
+
+
 // Route: /api/users/
 // GET all users
 router.get("/", async (req, res) => {
     try {
         const data = await User.find()
-            .populate({path: "friends", select: "_id username", options: { sort: {username:1} }})
+            .populate({ path: "friends", select: "_id username", options: { sort: { username: 1 } } })
             .populate("thoughts", "_id thoughtText")
-            .sort({username: 1})
+            .sort({ username: 1 })
             .select("-__v");
         res.status(200).json(data);
     } catch (err) {
         console.log(err);
-        res.status(500).json({status: "error", message:err.message});
+        res.status(500).json({ status: "error", message: err.message });
     }
 });
 
@@ -22,9 +25,9 @@ router.get("/", async (req, res) => {
 // GET a single user by its _id and populated thought and friend data
 router.get("/:userId", async (req, res) => {
     try {
-        const data = await User.findById({_id: req.params.userId})
-            .populate({path: "friends", select: "_id username email", options: { sort: {username:1} }})
-            .populate({path: "thoughts", populate: {path: "reactions", populate: {path: "user", select: "_id username email"}}})
+        const data = await User.findById({ _id: req.params.userId })
+            .populate({ path: "friends", select: "_id username email", options: { sort: { username: 1 } } })
+            .populate({ path: "thoughts", populate: { path: "reactions", populate: { path: "user", select: "_id username email" } } })
             .select("-__v");
         if (!data) {
             res.status(404).json({ message: 'Record ' + req.params.userId + ' not found.' });
@@ -33,7 +36,7 @@ router.get("/:userId", async (req, res) => {
         res.status(200).json(data);
     } catch (err) {
         console.log(err);
-        res.status(500).json({status: "error", message:err.message});
+        res.status(500).json({ status: "error", message: err.message });
     }
 });
 
@@ -50,7 +53,7 @@ router.post("/", async (req, res) => {
         res.status(200).json(data);
     } catch (err) {
         console.log(err);
-        res.status(500).json({status: "error", message:err.message});
+        res.status(500).json({ status: "error", message: err.message });
     }
 });
 
@@ -60,14 +63,14 @@ router.post("/", async (req, res) => {
 // POST to add a new friend to a user's friend list
 router.post("/:userId/friends/:friendId", async (req, res) => {
     try {
-        const data = await User.findByIdAndUpdate( req.params.userId,
+        const data = await User.findByIdAndUpdate(req.params.userId,
             { $push: { friends: req.params.friendId } },
             { new: true }
-        ).populate({path: "friends", select: "_id username email", options: { sort: {username:1} }});
+        ).populate({ path: "friends", select: "_id username email", options: { sort: { username: 1 } } });
         res.status(200).json(data);
     } catch (err) {
         console.log(err);
-        res.status(500).json({status: "error", message:err.message});
+        res.status(500).json({ status: "error", message: err.message });
     }
 });
 
@@ -76,7 +79,7 @@ router.post("/:userId/friends/:friendId", async (req, res) => {
 // PUT to update a user by its _id
 router.put("/:userId", async (req, res) => {
     try {
-        const data = await User.findByIdAndUpdate( req.params.userId,
+        const data = await User.findByIdAndUpdate(req.params.userId,
             { ...req.body },
             { new: true }
         )
@@ -87,7 +90,7 @@ router.put("/:userId", async (req, res) => {
         res.status(200).json(data);
     } catch (err) {
         console.log(err);
-        res.status(500).json({status: "error", message:err.message});
+        res.status(500).json({ status: "error", message: err.message });
     }
 });
 
@@ -97,11 +100,11 @@ router.put("/:userId", async (req, res) => {
 // DELETE to remove a friend from a user's friend list
 router.delete("/:userId/friends/:friendId", async (req, res) => {
     try {
-        const data = await User.findByIdAndUpdate( req.params.userId,
+        const data = await User.findByIdAndUpdate(req.params.userId,
             { $pull: { friends: req.params.friendId } },
             { new: true }
-        ).populate({path: "friends", select: "_id username email", options: { sort: {username:1} }});
-        
+        ).populate({ path: "friends", select: "_id username email", options: { sort: { username: 1 } } });
+
         if (!data) {
             res.status(404).json({ message: 'Record not found.' });
             return;
@@ -109,7 +112,7 @@ router.delete("/:userId/friends/:friendId", async (req, res) => {
         res.status(200).json(data);
     } catch (err) {
         console.log(err);
-        res.status(500).json({status: "error", message:err.message});
+        res.status(500).json({ status: "error", message: err.message });
     }
 });
 
@@ -119,15 +122,20 @@ router.delete("/:userId/friends/:friendId", async (req, res) => {
 // DELETE to remove user by its _id  => BONUS: Remove a user's associated thoughts when deleted.
 router.delete("/:userId", async (req, res) => {
     try {
-        const data = await User.findByIdAndDelete(req.params.userId);
-        if (!data) {
-            res.status(404).json({ message: 'Record ' + req.params.userId + ' not found.' });
+        const data1 = await User.findOneAndDelete({_id: req.params.userId});
+        const data2 = await Thought.deleteMany({user: req.params.userId});
+        if (!data1) {
+            res.status(404).json({ message: 'User records not found.' });
             return;
         }
-        res.status(200).json(data);
+        // if (!data2) {
+        //     res.status(404).json({ message: 'Thought records not found.' });
+        //     return;
+        // }
+        res.status(200).json({status: "record deleted", record: data1});
     } catch (err) {
         console.log(err);
-        res.status(500).json({status: "error", message:err.message});
+        res.status(500).json({ status: "error", message: err.message });
     }
 });
 
