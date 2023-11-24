@@ -22,7 +22,10 @@ router.get("/", async (req, res) => {
 router.get("/:userId", async (req, res) => {
     try {
         // const data = "GET a single user by its _id and populated thought and friend data";
-        const data = await User.findOne({_id: req.params.userId}).populate("friends", "_id username email");
+        const data = await User.findById({_id: req.params.userId})
+            .populate("friends", "_id username")
+            .populate("thoughts", "_id thoughtText")
+            .select("-__v");
         if (!data) {
             res.status(404).json({ message: 'Record ' + req.params.userId + ' not found.' });
             return;

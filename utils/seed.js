@@ -128,7 +128,7 @@ connection.once('open', async () => {
                     { $push: { reactions: {reactionBody: weclomeMessage, user: luciusUserId }} },
                     { new: true }
                 );
-                console.log('Thought updated successfully:', updatedThought);
+                // console.log('Thought updated successfully:', updatedThought);
             });
 
             await Promise.all(updatePromises);
