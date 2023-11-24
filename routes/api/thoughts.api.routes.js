@@ -71,9 +71,19 @@ router.post("/", async (req, res) => {
 
 // Route: /api/thoughts/:thoughtId/reactions
 // POST to create a reaction stored in a single thought's reactions array field
+// Example Data:
+// {
+//     "reactionBody" : "I'm coming to get you!",
+//     "user":"batman's userId"
+// }
 router.post("/:thoughtId/reactions", async (req, res) => {
     try {
-        const data = "POST to create a reaction stored in a single thought's reactions array field => thoughtId: " + req.params.thoughtId;
+        const data = await Thought.findByIdAndUpdate(req.params.thoughtId,
+            { $push: { reactions: {reactionBody: req.body.reactionBody, user: req.body.user }} },
+            { new: true }
+        )
+        .populate({ path: "user", select: "_id username email" })
+        .populate({path: "reactions", populate: {path: "user", select: "_id username email"}});
         res.status(200).json(data);
     } catch (err) {
         console.log(err);
