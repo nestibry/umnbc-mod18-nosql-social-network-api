@@ -76,7 +76,11 @@ router.post("/:userId/friends/:friendId", async (req, res) => {
 // PUT to update a user by its _id
 router.put("/:userId", async (req, res) => {
     try {
-        const data = "PUT to update a user by its _id";
+        const data = await User.findByIdAndUpdate( req.params.userId,
+            { ...req.body },
+            { new: true }
+        )
+        // .populate({path: "friends", select: "_id username email", options: { sort: {username:1} }});
         if (data[0] === 0) {
             res.status(400).json({ message: 'Record ' + req.params.userId + ' is not found or updated.' });
             return;
