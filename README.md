@@ -17,7 +17,7 @@ An API for a social network web application where users can share their thoughts
 
 #### Demo Video
 
-[![A video thumbnail shows the api application in the insonmia applicaiton window.](/_challenge_info/Assets/demo-video-thumbnail.png)](https://drive.google.com/file/d/1gd5yirohT-NALLFBdpyYUYjK6Am9V-r-/view)
+[![A video thumbnail shows the api application in the insonmia applicaiton window.](/_challenge_info/Assets/demo-video-thumbnail.png)](https://www.youtube.com/watch?v=mYROI-arFiY)
 
 ## Installation 
 
