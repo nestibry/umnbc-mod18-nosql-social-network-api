@@ -51,12 +51,16 @@ router.get("/:thoughtId", async (req, res) => {
 // }
 router.post("/", async (req, res) => {
     try {
+        if (!req.body.user) {
+            res.status(400).json({ message: 'Request needs a userId.' });
+            return;
+        }
         const thoughtData = await Thought.create(req.body);
         if (!thoughtData) {
             res.status(400).json({ message: 'New thought data not found.' });
             return;
         }
-        const userData = await User.findByIdAndUpdate(thoughtData.user,
+        const userData = await User.findByIdAndUpdate(req.body.user,
             { $push: { thoughts: thoughtData._id } },
             { new: true }
         );
